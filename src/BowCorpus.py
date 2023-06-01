@@ -1,4 +1,3 @@
-
 # Made by Heikki Kupiainen 2023
 
 import gensim
@@ -15,4 +14,3 @@ def create_from_phrase_list(phrase_list: list[str]):
 def create_from_sample_phrase_list():
   phrase_list = PhraseList.get_sample_phrases()
   return create_from_phrase_list(phrase_list)
-

@@ -1,4 +1,4 @@
-# made by Heikki Kupiainen 2023
+# Made by Heikki Kupiainen 2023
 
 # TokenizedList module provides tools to convert phrase lists
 # into tokenized lists

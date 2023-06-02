@@ -18,11 +18,15 @@ import PhraseList
 load_dotenv()
 
 SAMPLE_TEXT_SOURCE_FILE = os.getenv('SAMPLE_TEXT_SOURCE_FILE')    
+CORPUS_SERIALIZATION_DIR = os.getenv('CORPUS_SERIALIZATION_DIR')
 
 class BowCorpus:
   def __init__(self, dictionary, corpus):
     self.dictionary = dictionary
     self.corpus = corpus
+    
+  def __repr__(self):
+      return f"<BowCorpus corpus:{self.corpus} dictionary:{self.dictionary} >"
     
 def build_from_phrase_list(phrase_list: list[str]):
   tokenized_list = TokenizedList.build_from_phrase_list(phrase_list)
@@ -57,7 +61,15 @@ def build_from_file(filepath: str):
   return BowCorpus(dictionary, corpus)
 
 def build_from_sample_file():
-  print(SAMPLE_TEXT_SOURCE_FILE)
-
-  corpus = build_from_file(SAMPLE_TEXT_SOURCE_FILE)
-  print(corpus)
+  return build_from_file(SAMPLE_TEXT_SOURCE_FILE)
+  
+def serialize(bow_corpus, corpus_name:str, serialization_dir:str = CORPUS_SERIALIZATION_DIR ):
+  corpus_path = f"{serialization_dir}/{corpus_name}"
+  dictionary_path = f"{corpus_path}.dict"
+  corpus_path = f"{corpus_path}.mm"
+  bow_corpus.dictionary.save(dictionary_path)
+  corpora.MmCorpus.serialize(corpus_path, bow_corpus.corpus)
+  
+def serialize_sample_corpus():
+  bow_corpus = build_from_sample_file()
+  serialize(bow_corpus, "sample")

@@ -29,10 +29,10 @@ class BWCorpus(object):
   def __repr__(self):
       return f"<BWCorpus corpus:{self.corpus} dictionary:{self.dictionary} >"
     
-def get_dictionary(corpus: BWCorpus):
+def get_dictionary(corpus: BWCorpus) -> corpora.Dictionary:
   return corpus.dictionary
 
-def get_corpus(corpus: BWCorpus):
+def get_corpus(corpus: BWCorpus) -> list :
   return corpus.corpus
 
 def build_from_sample_phrase_list() -> BWCorpus:

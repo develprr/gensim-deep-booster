@@ -20,7 +20,7 @@ load_dotenv()
 SAMPLE_TEXT_SOURCE_FILE = os.getenv('SAMPLE_TEXT_SOURCE_FILE')    
 CORPUS_SERIALIZATION_DIR = os.getenv('CORPUS_SERIALIZATION_DIR')
 
-class BWCorpus(object):
+class Model(object):
 
   def __init__(self, dictionary, corpus):
     self.dictionary = dictionary
@@ -29,25 +29,25 @@ class BWCorpus(object):
   def __repr__(self):
       return f"<BWCorpus corpus:{self.corpus} dictionary:{self.dictionary} >"
     
-def get_dictionary(corpus: BWCorpus) -> corpora.Dictionary:
+def get_dictionary(corpus: Model) -> corpora.Dictionary:
   return corpus.dictionary
 
-def get_corpus(corpus: BWCorpus) -> list :
+def get_corpus(corpus: Model) -> list :
   return corpus.corpus
 
-def build_from_sample_phrase_list() -> BWCorpus:
+def build_from_sample_phrase_list() -> Model:
   phrase_list = PhraseList.get_sample_phrases()
   return build_from_phrase_list(phrase_list)
 
-def build_from_phrase_list(phrase_list: list[str]) -> BWCorpus:
+def build_from_phrase_list(phrase_list: list[str]) -> Model:
   tokenized_list = TokenizedList.build_from_phrase_list(phrase_list)
   dictionary = corpora.Dictionary()
   corpus = [dictionary.doc2bow(doc, allow_update=True) for doc in tokenized_list]
-  return BWCorpus(dictionary, corpus)
+  return Model(dictionary, corpus)
 
 def test_build_from_phrase_list():
   bw_corpus = build_from_sample_phrase_list()
-  assert(type(bw_corpus)) == BWCorpus
+  assert(type(bw_corpus)) == Model
   dictionary = get_dictionary(bw_corpus)
   assert(type(dictionary)) == corpora.Dictionary
   corpus = get_corpus(bw_corpus)

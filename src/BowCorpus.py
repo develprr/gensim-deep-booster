@@ -69,7 +69,19 @@ def serialize(bow_corpus, corpus_name:str, serialization_dir:str = CORPUS_SERIAL
   corpus_path = f"{corpus_path}.mm"
   bow_corpus.dictionary.save(dictionary_path)
   corpora.MmCorpus.serialize(corpus_path, bow_corpus.corpus)
+
+def deserialize(corpus_name: str, serialization_dir:str = CORPUS_SERIALIZATION_DIR ):
+  corpus_path = f"{serialization_dir}/{corpus_name}"
+  dictionary_path = f"{corpus_path}.dict"
+  corpus_path = f"{corpus_path}.mm"
+  dictionary = corpora.Dictionary.load(dictionary_path)
+  corpus = list(map(list, corpora.MmCorpus(corpus_path)))
+  return BowCorpus(dictionary, corpus)
   
-def serialize_sample_corpus():
+def serialize_sample():
   bow_corpus = build_from_sample_file()
   serialize(bow_corpus, "sample")
+  
+def deserialize_sample():
+  bow_corpus = deserialize("sample")
+  return(bow_corpus)

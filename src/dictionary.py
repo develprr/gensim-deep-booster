@@ -1,9 +1,7 @@
-# (C) by Heikki Kupiainen 2023    
-
+# (C) Heikki Kupiainen 2023    
 
 import gensim
 from gensim import corpora
-
 from api import Api
 
 class Dictionary(object): 
@@ -19,3 +17,7 @@ class Dictionary(object):
     dataset = Api.load_tex8_dataset()
     corpora_dictionary = corpora.Dictionary(dataset)
     return Dictionary(corpora_dictionary)
+    
+def test_build_from_text8():
+  dictionary = Dictionary.build_from_text8()
+  assert(type(dictionary)) == Dictionary

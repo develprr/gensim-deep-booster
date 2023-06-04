@@ -28,7 +28,7 @@ class TfIdf(object):
   
   def print(self):
     for doc in self.get_corpora_corpus():
-      print([[[id], np.around(freq, decimals=2)] for id, freq in doc])
+      print([[self.get_dictionary()[id], np.around(freq, decimals=2)] for id, freq in doc])
     
 def build_sample() -> TfIdf:
   bw_corpus = BWCorpus.build_sample()

@@ -7,11 +7,10 @@ class StringList(BaseModel):
   items: List[StrictStr]
   
   @staticmethod
-  def build(strings: list[str]):
+  def new(strings: list[str]):
     return StringList(**{
       'items': ['list', 'of', 'words']
     })
 
-
 def test_instantiation():
-  assert(type(StringList.build(['list', 'of', 'words']))) == StringList
+  assert(type(StringList.new(['list', 'of', 'words']))) == StringList

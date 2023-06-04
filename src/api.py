@@ -2,6 +2,19 @@
 
 import gensim.downloader as downloader
 
+class Api(object):
+  
+  @staticmethod  
+  def load_text8_body():
+    return downloader.load("text8")
+
+  @staticmethod  
+  def load_tex8_dataset():
+    body = Api.load_text8_body()
+    dataset = [wd for wd in body]
+    return dataset
+    
+
 def info_gigaworld():
   print(downloader.info('glove-wiki-gigaword-50'))
 
